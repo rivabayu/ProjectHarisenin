@@ -14,13 +14,13 @@ root.render(
   <React.StrictMode>
     <BrowserRouter>
       <Provider store={store}>
-      <ToastContainer
+      {/* <ToastContainer
           position="top-right"
           autoClose={2000}
           closeOnClick
           pauseOnHover={false}
           theme="light"
-          />
+          /> */}
         <App /> 
       </Provider>
     </BrowserRouter>

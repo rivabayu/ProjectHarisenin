@@ -7,7 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 
 
 const Cart = () => {
-  const cartItems = useSelector(state => state.cart.cartItems)
+
+  const cartItems = useSelector(state => state?.cart?.cartItems)
   return (
     <Helmet title='Cart'>
       <CommonSection title='Shopping Cart'/>
@@ -27,8 +28,8 @@ const Cart = () => {
               </div>
               <div>
                 {
-                  cartItems?.map((item, index) =>(
-                   <Tr item={item} key={index}/>
+                  cartItems?.map((item, index) =>(                    
+                   <Div item={item} key={index}/>
                   ))
                 }
               </div>
@@ -36,7 +37,6 @@ const Cart = () => {
             </div>
             )
           }
-         
           <div></div>
         </div>
       </section>
@@ -44,10 +44,11 @@ const Cart = () => {
   )
 }
 
-const Tr = ({item}) =>{
+const Div = ({item}) =>{
  const dispatch = useDispatch()
+//  console.log(item)
  
-const deleteProduct =() =>{
+const deleteProduct = () =>{
   dispatch(cartActions.deleteItem(item?.id))
   console.log("itemssss",item);
 }
@@ -61,8 +62,8 @@ const deleteProduct =() =>{
     <span className='w-[20rem] text-end py-4' >$ {item.price}</span>
     <span className='w-[20rem] text-end py-4'>{item.quantity} px</span>
     <span className='w-[20rem] text-end py-4 flex justify-end'>
-      <span className='btn btn-ghost' >
-        <MdDeleteOutline onClick={deleteProduct} 
+      <span className='cursor-pointer' >
+        <MdDeleteOutline  onClick={deleteProduct}
            className='text-2xl  text-black  '/>
        </span>
     </span>
