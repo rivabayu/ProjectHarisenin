@@ -6,7 +6,7 @@ import Hero from '../assets/images/hero-img.png'
 import Services from '../component/Services'
 import ProductList from '../component/UI/ProductList'
 import products from '../assets/data/products'
-import ProductList2 from '../component/UI/ProductList2'
+
 
 import imgdiskon from '../assets/images/counter-timer-img.png'
 import Clock from '../component/UI/Clock'
@@ -92,7 +92,7 @@ const Home = () => {
           Best Selling
       </div>
       <div className='px-20'>
-      <ProductList2 data={bestSales}/>
+      <ProductList data={bestSales}/>
       </div>
     </section>
       

@@ -13,9 +13,10 @@ module.exports = {
       },
     },
     extend: {
-      fontFamily:{
-       
+      backgroundImage:{
+        'CommonBg' : "url('../src/assets/images/bgcommon.jpg')"
       },
+     
       colors:{
         heroBgColor : '#d6e5fb',
         smallText : '#999',
