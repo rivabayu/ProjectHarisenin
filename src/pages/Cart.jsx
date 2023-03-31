@@ -4,21 +4,24 @@ import CommonSection from '../component/UI/CommonSection'
 import { MdDeleteOutline } from 'react-icons/md'
 import { cartActions } from '../redux/slices/cartSlice'
 import { useSelector, useDispatch } from 'react-redux'
+import { Link } from 'react-router-dom'
 
 
 const Cart = () => {
 
   const cartItems = useSelector(state => state?.cart?.cartItems)
+  const totalAmount = useSelector(state => state?.cart?.totaAmount)
   return (
     <Helmet title='Cart'>
       <CommonSection title='Shopping Cart'/>
+      
 
-      <section className='mx-20 lg:mx-40 mt-10'>
+      <section className='flex lg:flex-row flex-col mx-20 lg:mx-40 mt-10'>
         <div className=''>
           {
             cartItems?.length === 0 ? (<h2 className='text-xl font-semibold'>No Item added to cart</h2>) 
             :(
-              <div className='lg:w-[70rem] gap-10'>
+              <div className='w-[40rem] lg:w-[70rem] gap-10'>
               <div className='border-b-4 flex text-lg font-bold '>
                 <span className='w-[25rem] flex '>Image</span>
                 <span className='w-[20rem]'>Product</span>
@@ -33,12 +36,24 @@ const Cart = () => {
                   ))
                 }
               </div>
-              
             </div>
             )
           }
-          <div></div>
         </div>
+          <div className='mt-10'>
+            <div className='py-4 '>
+              <h6 className='font-bold uppercase text-2xl'>SubTotal</h6>
+              <span className=' text-xl'>$ {totalAmount}</span>
+            </div>
+            <div>
+              <Link to='/checkout'>
+                <button className="btn btn-wide mt-2 flex hover:bg-white hover:text-headingText bg-headingText text-white ">CheckOut</button>
+              </Link>
+              <Link to='/shop'>
+                <button className="btn btn-wide mt-2 flex hover:bg-white hover:text-headingText bg-headingText text-white ">Continue Shopping</button>
+              </Link>
+            </div>
+          </div>
       </section>
     </Helmet>
   )

@@ -2,17 +2,30 @@ import React, { useRef, useEffect, useState } from 'react'
 import Logo from '../assets/images/logo.png'
 import userIcons from '../assets/images/user-icon.png'
 
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import {MdOutlineFavoriteBorder,MdOutlineShoppingBag} from 'react-icons/md'
-
+import useAuth from '../custom-hooks/useAuth'
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase.config'
 import { useSelector } from 'react-redux'
+import { toast } from 'react-toastify'
 
 
 const Header = () => {
-  const headerRef = useRef(null)
+  
   const totalQuantity = useSelector(state => state.cart.totalQuantity)
-
+  const navigate = useNavigate()
   const [bgHeader, setBgHeader] = useState(false);
+  const {currentUser} = useAuth()
+
+  const logout = () => {
+    signOut(auth).then(()=>{
+      toast.success('Logged Out')
+      navigate('/login')
+    }).catch(erorr =>{
+      toast.error(erorr.message)
+    })
+   }
 
   useEffect(() =>{
     window.addEventListener('scroll', ()=>{
@@ -63,18 +76,25 @@ const Header = () => {
     <div className="dropdown dropdown-end px-2">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src={userIcons} />
+          <img src={currentUser ? currentUser.photoURL : userIcons}/>
         </div>
       </label>
-      <ul tabIndex={0} className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 rounded-box w-52">
+      <ul tabIndex={0} className="menu menu-compact dropdown-content  mt-3 p-2 shadow bg-base-100 rounded-box w-52">
         <li>
-          <a className="justify-between">
+          <a className="justify-between hover:bg-headingText hover:text-white">
             Profile
-            <span className="badge">New</span>
           </a>
         </li>
-        <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        {
+          currentUser? <li onClick={logout}><a>Logout</a></li> :<div>
+            <Link to='/login'>
+              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Login</a></li>
+            </Link>
+            <Link to='/singup'>
+              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Signup</a></li>
+            </Link>
+          </div>
+        }
       </ul>
     </div>
   </div>

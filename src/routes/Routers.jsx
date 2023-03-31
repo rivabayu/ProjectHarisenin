@@ -8,6 +8,7 @@ import ProductDetails from '../pages/ProductDetails'
 import Shop from '../pages/Shop'
 import Singup from '../pages/Singup'
 import Cart from '../pages/Cart'
+import ProtectedRoute from './ProtectedRoute'
 
 const Routers = () => {
   return <Routes>
@@ -15,7 +16,13 @@ const Routers = () => {
       <Route path='home' element={<Home/>}/>
       <Route path='shop' element={<Shop/>}/>
       <Route path='product-details/:id' element={<ProductDetails/>}/>
-      <Route path='checkout' element={<Checkout/>}/>
+      <Route
+        path='checkout' 
+        element={
+          <ProtectedRoute>
+            <Checkout/>
+          </ProtectedRoute>
+         }/>
       <Route path='cart' element={<Cart/>}/>
       <Route path='login' element={<Login/>}/>
       <Route path='singup' element={<Singup/>}/>
