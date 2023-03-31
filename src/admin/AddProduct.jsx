@@ -39,7 +39,7 @@ const AddProduct = () => {
       () =>{
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
           await addDoc(docRef, {
-            title: enterTitle,
+            productName: enterTitle,
             shortDesc: enterShortDes,
             description: enterDescription,
             price: enterPrice,

@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom'
 import Helmet from '../component/Helmet/Helmet'
 import CommonSection from '../component/UI/CommonSection'
 
-import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword,updateProfile } from "firebase/auth";
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
-import { setDoc, doc } from 'firebase/firestore';
+import { collection, addDoc, setDoc, doc } from 'firebase/firestore';
 
 import {auth} from '../firebase.config'
 import { storage } from '../firebase.config';
@@ -38,7 +38,8 @@ function Singup() {
       )
 
       const user = userCredential.user
-      const storageref = ref(storage, `iamge/ ${Date.now() + username}`)
+      // const docref = await collection (db, 'users')
+      const storageref = ref(storage, `iamge/${Date.now() + username}`)
       const uploadTask = uploadBytesResumable(storageref, file)
 
       uploadTask.on(
@@ -51,12 +52,13 @@ function Singup() {
               displayName: username,
               photoURL: downloadURL
             })
-            await setDoc(doc(db, "users", user.uid),{
-              uid : user.uid,
+            await setDoc(doc(db, 'users', user.uid), {
+              uid: user.uid,
               displayName: username,
-              email,
               photoURL: downloadURL,
+              email,
             })
+           console.log(user.displayName)
           })
         }
       );
@@ -117,17 +119,18 @@ function Singup() {
             ):(
               <form className='bg-headingText w-1/2 lg:w-1/4 rounded-xl' onSubmit={signup}>
             <div className='mx-10 my-10' >
-              <input 
+              <input required
               value={username} onChange={e=> setUsername(e.target.value)}
               type="text" placeholder="Username" className="input input-bordered w-full my-2 " />
-              <input id='email' autoComplete="email" name="email"
+              <input required
+              id='email' autoComplete="email" name="email"
               value={email} onChange={e=> setEmail(e.target.value)}
               type="email" placeholder="Your Email" className="input input-bordered w-full my-2 " />
-              <input 
+              <input required
               value={password} onChange={e=> setPassword(e.target.value)} 
                  type="password" placeholder="Your Password" className="input input-bordered w-full my-2 " />
-              <input type="file" id='avatar'name='avatar' accept='image/png, image/jpeg'  placeholder='choose file' className='file-input' 
-              value={file} onChange={e=> setFile(e.target.files(0))}/>
+              <input type="file" id='avatar'name='avatar' required accept='image/png, image/jpeg'  placeholder='choose file' className='file-input' 
+               onChange={e=> setFile(e.target.files[0])}/>
               
               <div className='flex justify-center mt-10'>
                 <button type='submit' className="btn  mt-2 flex bg-white text-headingText hover:bg-headingText hover:text-white ">Create an Account</button>

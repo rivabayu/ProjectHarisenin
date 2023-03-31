@@ -8,8 +8,10 @@ const AdminNav = () => {
     <div>
         <header className="navbar fixed bg-headingText p-5 lg:px-40">
           <div className="flex-1">
+            <Link to='/home'>
             <a className="btn btn-ghost normal-case text-xl gap-3 text-white">
               <img src={logo} className='w-10' alt="" /> ID Store</a>
+            </Link>
           </div>
           <div className="flex-none gap-2">
             <div className="form-control">
