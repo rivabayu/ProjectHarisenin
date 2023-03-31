@@ -4,7 +4,7 @@ import Helmet from '../component/Helmet/Helmet'
 import CommonSection from '../component/UI/CommonSection'
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
+import {ref, uploadBytesResumable, getDownloadURL, getStorage} from 'firebase/storage'
 import { setDoc,doc } from 'firebase/firestore';
 
 import {auth} from '../firebase.config'
@@ -21,7 +21,7 @@ function Singup() {
   const [username ,setUsername] = useState('')
   const [email ,setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [file, setFile] = useState(null)
+  const [file, setFile] = useState('')
   const [loading, setLoading ] = useState(false)
 
   const navigate = useNavigate()
@@ -32,31 +32,32 @@ function Singup() {
 
     try {
       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+      const user =  userCredential.user
+      const storageref = ref(storage, `images/ ${Date.now() + username }`)
+      const uploadTask = uploadBytesResumable(storageref, file )
       
-      const user = userCredential.user
-      const storageref = ref(storage, `images/${Date.now() + username}`)
-      const uploadTask = uploadBytesResumable(storageref, file)
 
-      uploadTask.on((error)=>{
-        toast.error(error.message)
-      },
-      ()=>{
-        getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) =>{
-         await updateProfile(user,{
-          // update user profile
-            displayName : username,
-            photoURL: downloadURL
-          })
+      uploadTask.on(
+        (err) =>{
+          console.log(err.message)
+        },
+        () =>{
+          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) =>{
+            await updateProfile(user,{
+              displayName: username,
+              photoURL: downloadURL
+            });
+            await setDoc(doc(db, 'users' ,user.uid),{
+              uid: user.uid,
+              displayName : username,
+              email,
+              photoURL: downloadURL,
 
-          // store user data in firestore db
-          await setDoc(doc(db,"users", user.uid),{
-            uid: user.uid,
-            displayName: username,
-            email,
-            photoURL: downloadURL
+            })
           })
-        } )
-      })
+        }
+      )
 
      
       setLoading(false)

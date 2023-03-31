@@ -10,22 +10,28 @@ import Singup from '../pages/Singup'
 import Cart from '../pages/Cart'
 import ProtectedRoute from './ProtectedRoute'
 
+import AddProduct from '../admin/AddProduct'
+import AllProduct from '../admin/AllProduct'
+import Dashboard from '../admin/Dashboard'
+
+
 const Routers = () => {
   return <Routes>
     <Route path='/' element={<Navigate to='home'/>}/>
-      <Route path='home' element={<Home/>}/>
+      <Route path='home' element={
+      <Home/>}/>
       <Route path='shop' element={<Shop/>}/>
       <Route path='product-details/:id' element={<ProductDetails/>}/>
-      <Route
-        path='checkout' 
-        element={
-          <ProtectedRoute>
-            <Checkout/>
-          </ProtectedRoute>
-         }/>
       <Route path='cart' element={<Cart/>}/>
       <Route path='login' element={<Login/>}/>
       <Route path='singup' element={<Singup/>}/>
+
+      <Route path='/*' element={<ProtectedRoute/>}>
+        <Route path='checkout' element={<Checkout/>}/>
+        <Route path='dashboard' element={<Dashboard/>}/>
+        <Route path='dashboard/all-product' element={<AllProduct/>}/>
+        <Route path='dashboard/add-product' element={<AddProduct/>}/>
+      </Route>
 
   </Routes>
     

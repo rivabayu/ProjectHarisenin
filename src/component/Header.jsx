@@ -3,7 +3,7 @@ import Logo from '../assets/images/logo.png'
 import userIcons from '../assets/images/user-icon.png'
 
 import { Link, useNavigate } from 'react-router-dom'
-import {MdOutlineFavoriteBorder,MdOutlineShoppingBag} from 'react-icons/md'
+import {MdOutlineShoppingBag} from 'react-icons/md'
 import useAuth from '../custom-hooks/useAuth'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase.config'
@@ -43,22 +43,6 @@ const Header = () => {
     
   </div>
   <div className="flex-none">
-    {/* <div className="dropdown dropdown-end">
-      <label tabIndex={0} className="btn btn-ghost btn-circle">
-        <div className="indicator">
-          <MdOutlineFavoriteBorder className='text-2xl'/>
-          <span className="badge badge-sm indicator-item">8</span>
-        </div>
-      </label>
-      <div tabIndex={0} className="mt-3 card card-compact dropdown-content w-52 bg-base-100 shadow">
-        <div className="card-body">
-          <span className="font-bold text-lg">8 Items</span>
-          <div className="card-actions">
-            <button className="btn btn-primary btn-block">View WishList</button>
-          </div>
-        </div>
-      </div>
-    </div> */}
     <Link to='/shop'>
       <div className='font-semibold btn btn-ghost'>Shop</div>
     </Link>
@@ -76,9 +60,10 @@ const Header = () => {
     <div className="dropdown dropdown-end px-2">
       <label tabIndex={0} className="btn btn-ghost btn-circle avatar">
         <div className="w-10 rounded-full">
-          <img src={currentUser ? currentUser.photoURL : userIcons}/>
+          <img src={userIcons} alt="" />
         </div>
       </label>
+      
       <ul tabIndex={0} className="menu menu-compact dropdown-content  mt-3 p-2 shadow bg-base-100 rounded-box w-52">
         <li>
           <a className="justify-between hover:bg-headingText hover:text-white">
@@ -86,16 +71,24 @@ const Header = () => {
           </a>
         </li>
         {
-          currentUser? <li onClick={logout}><a>Logout</a></li> :<div>
+          currentUser ? <li onClick={logout}><a>Logout</a></li> :<div>
             <Link to='/login'>
               <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Login</a></li>
             </Link>
             <Link to='/singup'>
               <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Signup</a></li>
             </Link>
+            <Link to='/dashboard'>
+              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Dashboard</a></li>
+            </Link>
           </div>
         }
       </ul>
+    </div>
+    <div>
+    {
+            currentUser ? <p>Hi {currentUser.displayName}</p>  : <p>Hi</p>
+          }
     </div>
   </div>
 </div>
