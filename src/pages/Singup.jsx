@@ -4,8 +4,8 @@ import Helmet from '../component/Helmet/Helmet'
 import CommonSection from '../component/UI/CommonSection'
 
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
-import {ref, uploadBytesResumable, getDownloadURL, getStorage} from 'firebase/storage'
-import { setDoc,doc } from 'firebase/firestore';
+import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
+import { setDoc, doc } from 'firebase/firestore';
 
 import {auth} from '../firebase.config'
 import { storage } from '../firebase.config';
@@ -30,44 +30,80 @@ function Singup() {
     e.preventDefault();
     setLoading(true);
 
-    try {
-      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+    try{
+      const userCredential = await createUserWithEmailAndPassword(
+        auth,
+        email,
+        password
+      )
 
-      const user =  userCredential.user
-      const storageref = ref(storage, `images/ ${Date.now() + username }`)
-      const uploadTask = uploadBytesResumable(storageref, file )
-      
+      const user = userCredential.user
+      const storageref = ref(storage, `iamge/ ${Date.now() + username}`)
+      const uploadTask = uploadBytesResumable(storageref, file)
 
       uploadTask.on(
-        (err) =>{
+        (err) => {
           console.log(err.message)
         },
-        () =>{
-          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) =>{
+        () => {
+          getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
             await updateProfile(user,{
               displayName: username,
               photoURL: downloadURL
-            });
-            await setDoc(doc(db, 'users' ,user.uid),{
-              uid: user.uid,
-              displayName : username,
+            })
+            await setDoc(doc(db, "users", user.uid),{
+              uid : user.uid,
+              displayName: username,
               email,
               photoURL: downloadURL,
-
             })
           })
         }
-      )
-
-     
+      );
       setLoading(false)
-      toast.success('Account Created Success')
+      toast.success('Created account success')
       navigate('/login')
-    }catch (error){
+    } catch (erorr){
+      console.log(erorr)
       setLoading(false)
       toast.error('something wrong')
-
     }
+
+    // try {
+    //   const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+    //   const user =  userCredential.user
+    //   const storageref = ref(storage, `images/ ${Date.now() + username }`)
+    //   const uploadTask = uploadBytesResumable(storageref, file )
+      
+
+    //   uploadTask.on(
+    //     (err) =>{
+    //       console.log(err.message)
+    //     },
+    //     () =>{
+    //       getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) =>{
+    //         await updateProfile(user,{
+    //           displayName: username,
+    //           photoURL: downloadURL
+    //         });
+    //         await setDoc(doc(db, "users" ,user.uid),{
+    //           uid: user.uid,
+    //           displayName : username,
+    //           email,
+    //           photoURL: downloadURL,
+    //         })
+    //       })
+    //     }
+    //   )
+    //   setLoading(false)
+    //   toast.success('Account Created Success')
+    //   navigate('/login')
+    // }catch (error){
+    //   setLoading(false)
+    //   toast.error('something wrong')
+
+    // }
   }
   return (
     <Helmet title='SingUp'>
@@ -84,14 +120,14 @@ function Singup() {
               <input 
               value={username} onChange={e=> setUsername(e.target.value)}
               type="text" placeholder="Username" className="input input-bordered w-full my-2 " />
-              <input 
+              <input id='email' autoComplete="email" name="email"
               value={email} onChange={e=> setEmail(e.target.value)}
               type="email" placeholder="Your Email" className="input input-bordered w-full my-2 " />
-              <input
+              <input 
               value={password} onChange={e=> setPassword(e.target.value)} 
                  type="password" placeholder="Your Password" className="input input-bordered w-full my-2 " />
-              <input type="file" placeholder='choose file' className='file-input' 
-              value={file} onChange={e=> setFile(e.target.value)}/>
+              <input type="file" id='avatar'name='avatar' accept='image/png, image/jpeg'  placeholder='choose file' className='file-input' 
+              value={file} onChange={e=> setFile(e.target.files(0))}/>
               
               <div className='flex justify-center mt-10'>
                 <button type='submit' className="btn  mt-2 flex bg-white text-headingText hover:bg-headingText hover:text-white ">Create an Account</button>
