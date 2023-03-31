@@ -3,6 +3,7 @@ import { toast } from 'react-toastify'
 import { db, storage } from '../firebase.config'
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
+import { useNavigate } from 'react-router-dom'
 
 const AddProduct = () => {
   const [enterTitle, setEnterTitle] = useState('')
@@ -12,9 +13,11 @@ const AddProduct = () => {
   const [enterPrice, setEnterPrice] = useState('')
   const [enterImg, setEnterImg] = useState(null)
   const [loading, setLoading] = useState(false)
+  const navigate = useNavigate()
 
   const addProduct = async(e) =>{
     e.preventDefault()
+    setLoading(true)
 
     // const product = {
     //   title: enterTitle,
@@ -44,14 +47,17 @@ const AddProduct = () => {
             imgUrl: downloadURL,
           })
         })
-        toast.success('product added successfully')
       })
       // console.log(getDownloadURL, 'inininini')
-
-
+      
+      
+      toast.success('product added successfully')
+      navigate('/dashboard/all-product')
+      setLoading(false)
 
     }catch(error){
       console.log(error)
+      setLoading(false)
     }
 
     // console.log(product)
@@ -63,7 +69,10 @@ const AddProduct = () => {
           <div className='text-3xl'>
             Add Product
           </div>
-          <form className='mt-5 w-full' onSubmit={addProduct}>
+          {
+            loading ? (<h4 className='py-10 text-xl font-semibold'> Loading .....</h4> 
+            ):(
+              <form className='mt-5 w-full' onSubmit={addProduct}>
             <div className='flex flex-col mt-5'>
               <span className='text-md font-semibold text-orange-400'>Product title</span>
               <input value={enterTitle} onChange={e => setEnterTitle(e.target.value)} required
@@ -105,6 +114,10 @@ const AddProduct = () => {
               <button type='submit' className="btn  mt-2 flex hover:bg-white hover:text-headingText bg-headingText text-white ">Add product</button>
               </div>
           </form>
+            )
+            
+          }
+          
         </div>
     </div>
   )
