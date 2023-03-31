@@ -58,7 +58,7 @@ const AdminNav = () => {
                   oders
                 </div>
               </Link>
-              <Link to='/dashboard'>
+              <Link to='/dashboard/user'>
                 <div className='font-semibold  w-20 btn-ghost p-2 rounded-lg btn '>
                   user
                 </div>
