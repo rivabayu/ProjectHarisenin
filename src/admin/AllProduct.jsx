@@ -3,6 +3,7 @@ import useGetData from '../custom-hooks/useGetData'
 import {db} from '../firebase.config'
 import { doc, deleteDoc } from 'firebase/firestore'
 import {toast} from 'react-toastify'
+import AdminNav from './AdminNav'
 
 const AllProduct = () => {
 
@@ -14,7 +15,9 @@ const AllProduct = () => {
   }
 
   return (
-    <section className='mx-20 lg:mx-40 mt-10'>
+    <>
+    
+    <section className='mx-20 lg:mx-40 mt-10 mb-[29rem]'>
       <div className='flex justify-center overflow-y-scroll'>
       <div className='w-[45rem] lg:w-[70rem] gap-10'>
         <div className='border-b-4 flex text-lg font-bold '>
@@ -25,7 +28,8 @@ const AllProduct = () => {
          <span className='w-[20rem] text-end'>Delete</span>
         </div>
      <div>{loading ? (
-        <div className='text-xl font-semibold'>Loading........</div>  
+        <div className='text-xl font-semibold'>Loading........
+        <progress className="progress w-56"></progress></div>  
          ) : ( productsData.map(item =>(
          <div  className='flex border-b-2' key={item.id}> 
              <span className='w-[25rem] flex justify-start'>
@@ -42,6 +46,7 @@ const AllProduct = () => {
         </div>
       </div>
     </section>
+    </>
   )
 }
 

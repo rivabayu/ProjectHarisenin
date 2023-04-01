@@ -4,6 +4,7 @@ import { db, storage } from '../firebase.config'
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import AdminNav from './AdminNav'
 
 const AddProduct = () => {
   const [enterTitle, setEnterTitle] = useState('')
@@ -58,13 +59,14 @@ const AddProduct = () => {
   }
 
   return (
-    <div className='lg:mx-40 md:mx-10 mb-20'>
+    <div className=''>
         <div className='mt-10 px-40'>
           <div className='text-3xl'>
             Add Product
           </div>
           {
-            loading ? (<h4 className='py-10 text-xl font-semibold'> Loading .....</h4> 
+            loading ? (<h4 className='py-10 text-xl font-semibold'> Loading .....
+            <progress className="progress w-56"></progress></h4> 
             ):(
               <form className='mt-5 w-full' onSubmit={addProduct}>
             <div className='flex flex-col mt-5'>

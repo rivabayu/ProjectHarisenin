@@ -3,6 +3,7 @@ import {db} from '../firebase.config'
 import { doc, deleteDoc } from 'firebase/firestore'
 import {toast} from 'react-toastify'
 import useGetData from '../custom-hooks/useGetData'
+import AdminNav from './AdminNav'
 
 
 function Users() {
@@ -13,7 +14,9 @@ function Users() {
         toast.success('delete users succesfully')
     }
   return (
-    <section className='mx-20 lg:mx-40 mt-10'>
+    <>
+  
+    <section className='mx-20 lg:mx-40 mt-10 mb-[29rem]'>
     <div className='flex justify-center '>
     <div className='w-[45rem] lg:w-[70rem] gap-10'>
       <div className='border-b-4 flex text-lg font-bold '>
@@ -23,7 +26,8 @@ function Users() {
        <span className='w-[20rem] text-end'>Delete</span>
       </div>
    <div>{loading ? (
-      <div className='text-xl font-semibold'>Loading........</div>  
+      <div className='text-xl font-semibold'>
+        <progress className="progress w-56"></progress>Loading........</div>  
        ) : ( usersData.map(item =>(
        <div  className='flex border-b-2' key={item.uid}> 
            <span className='w-[25rem] flex justify-start'>
@@ -39,6 +43,7 @@ function Users() {
       </div>
     </div>
   </section>
+    </>
   )
 }
 

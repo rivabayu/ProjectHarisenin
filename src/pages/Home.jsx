@@ -61,7 +61,7 @@ const Home = () => {
     {/* rekomendasi product */}
     <section>
       <div className='flex justify-center text-2xl'>
-          Rekomendasi Product
+          Rekomendation Product
       </div>
       <div className='px-20'>
         <ProductList data={rekomenadasi}/>
@@ -73,8 +73,9 @@ const Home = () => {
         <div className='flex justify-between md:mx-20 lg:mx-48'>
             <div className='flex flex-col justify-center'>
               <div className=''> 
-                <div className='text-xl font-light text-white'>Penawaran Terbatas</div>
-                <div className='text-2xl font font-semibold text-white'>Kursi Gaming</div>
+                <div className='text-xl font-light text-white'>
+                   Summer Sale </div>
+                <div className='text-2xl font font-semibold text-white'>Chair Heaven</div>
               </div>
               <Clock/>
               <Link to='/shop'>

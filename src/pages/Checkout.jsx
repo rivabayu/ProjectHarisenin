@@ -37,7 +37,7 @@ const Checkout = () => {
                 </div>
                 <div className='pt-2 px-4 flex justify-between'>
                   <span>Shipping</span>
-                  <span className='font-semibold'>10</span>
+                  <span className='font-semibold'>0</span>
                 </div>
                 <div className='pt-2 pb-2 px-4 flex justify-between '>
                   <span>Free Shipping</span>

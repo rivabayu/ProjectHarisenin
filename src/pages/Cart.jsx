@@ -8,7 +8,6 @@ import { Link } from 'react-router-dom'
 
 
 const Cart = () => {
-  const dispatch = useDispatch()
   // const totalAmount = dispatch(cartActions.getTotal)
 
   const cartItems = useSelector(state => state?.cart?.cartItems)
@@ -22,7 +21,7 @@ const Cart = () => {
       
 
       <section className='flex lg:flex-row flex-col mx-20 lg:mx-40 mt-10'>
-        <div className=''>
+        <div >
           {
             cartItems?.length === 0 ? (<h2 className='text-xl font-semibold'>No Item added to cart</h2>) 
             :(
@@ -34,10 +33,10 @@ const Cart = () => {
                 <span className='w-[20rem] text-end'>Quantity</span>
                 <span className='w-[20rem] text-end'>Delete</span>
               </div>
-              <div>
+              <div className='overflow-y-scroll h-[20rem] lg:h-[35rem]' >
                 {
                   cartItems?.map((item, index) =>(                    
-                   <Div item={item} key={index}/>
+                   <Div item={item} key={index} />
                   ))
                 }
               </div>
@@ -47,7 +46,7 @@ const Cart = () => {
             )
           }
         </div>
-        <div className='mt-10'>
+        <div className='mt-10 mx-10'>
             <div className='py-4 '>
               <h6 className='font-bold uppercase text-2xl'>SubTotal</h6>
               <span className=' text-xl'>$ {totalAmount}</span>
@@ -78,7 +77,9 @@ const deleteProduct = () =>
 
 
   return <>
-  <div  className='flex border-b-2'> 
+  <div>
+
+  <div  className='flex border-b-2 '> 
     <span className='w-[25rem] flex justify-start'>
      <img src={item.imgUrl} className='w-36 pr-5 flex' alt="" />
     </span>
@@ -91,6 +92,7 @@ const deleteProduct = () =>
            className='text-2xl  text-black  '/>
        </span>
     </span>
+  </div>
   </div>
   
   </>

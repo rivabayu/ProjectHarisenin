@@ -37,7 +37,7 @@ const Header = () => {
     <div className={`${bgHeader ? 'bg-cartBg3  shadow-xl' : 'bg-white shadow-none' } navbar z-50 fixed bg-base-100 px-5 md:px-20 lg:px-40 py-3 lg:py-5 transision-all duration-500`}>
   <Link to='/home' className="flex-1">
     <img src={Logo} className='w-10' alt="logo" />
-    <div  className="btn btn-ghost normal-case text-xl">ID Barkas</div>
+    <div  className="btn btn-ghost normal-case text-xl">ID Store</div>
   </Link>
   <div className='flex-1 gap-4'>
     
@@ -65,22 +65,19 @@ const Header = () => {
       </label>
       
       <ul tabIndex={0} className="menu menu-compact dropdown-content  mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <a className="justify-between hover:bg-headingText hover:text-white">
-            Profile
-          </a>
-        </li>
+      <Link to='/dashboard'>
+              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Dashboard</a></li>
+            </Link>
         {
-          currentUser ? <li onClick={logout}><a>Logout</a></li> :<div>
+          currentUser ? 
+          <li onClick={logout}><a>Logout</a></li> :<div>
             <Link to='/login'>
               <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Login</a></li>
             </Link>
             <Link to='/singup'>
               <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Signup</a></li>
             </Link>
-            <Link to='/dashboard'>
-              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Dashboard</a></li>
-            </Link>
+         
           </div>
         }
       </ul>

@@ -74,11 +74,6 @@ const Shop = () => {
             </select>
           </div>
           <div>
-          <select  className="select w-full max-w-xs bg-headingText text-white">
-              <option disabled selected>Short By</option>
-              <option value="ascending">Ascending</option>
-              <option value="descending">Descending</option>
-            </select>
           </div>
           <div>
             <div className='flex items-center border-2 rounded-lg border-black lg:w-[40rem] justify-between cursor-pointer' onChange={handleSearch}>

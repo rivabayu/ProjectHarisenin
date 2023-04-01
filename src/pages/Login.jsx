@@ -37,11 +37,11 @@ function Login() {
     <Helmet title='login'>
       <CommonSection title='Login'/>
 
-      <section className='mt-20'>
+      <section className='mt-20 mb-[15rem]'>
         <div className='mt-20 flex justify-center'>
           {
             loading? (
-              <div className='text-xl font-bold'>Loading ......</div>
+              <div className='text-xl font-bold'><progress className="progress w-56"></progress></div>
             ) : (
               <div className='bg-headingText w-1/2 lg:w-1/4 rounded-xl'>
             <form className='mx-10 my-10' onSubmit={signIn}>
