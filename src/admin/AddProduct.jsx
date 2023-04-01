@@ -4,7 +4,7 @@ import { db, storage } from '../firebase.config'
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
-import AdminNav from './AdminNav'
+
 
 const AddProduct = () => {
   const [enterTitle, setEnterTitle] = useState('')
@@ -20,15 +20,7 @@ const AddProduct = () => {
     e.preventDefault()
     setLoading(true)
 
-    const product = {
-      id: `${Date.now()}`,
-      title: enterTitle,
-      shortDesc: enterShortDes,
-      description: enterDescription,
-      price: enterPrice,
-      category: enterCategory,
-      imgUrl: enterImg, 
-    };
+
 
     try{
       const docRef = await collection (db, 'product')
@@ -40,7 +32,14 @@ const AddProduct = () => {
       }, 
       () =>{
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-          await addDoc(docRef,(product)
+          await addDoc(docRef,{
+            productName: enterTitle,
+            shortDesc: enterShortDes,
+            description: enterDescription,
+            price: enterPrice,
+            category: enterCategory,
+            imgUrl: downloadURL,
+          }
           )
         })
       })
@@ -55,7 +54,7 @@ const AddProduct = () => {
       setLoading(false)
     }
 
-    console.log(product)
+
   }
 
   return (
