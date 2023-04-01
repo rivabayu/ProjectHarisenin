@@ -19,14 +19,15 @@ const AddProduct = () => {
     e.preventDefault()
     setLoading(true)
 
-    // const product = {
-    //   title: enterTitle,
-    //   shortDesc: enterShortDes,
-    //   description: enterDescription,
-    //   price: enterPrice,
-    //   category: enterCategory,
-    //   imgUrl: enterImg, 
-    // };
+    const product = {
+      id: `${Date.now()}`,
+      title: enterTitle,
+      shortDesc: enterShortDes,
+      description: enterDescription,
+      price: enterPrice,
+      category: enterCategory,
+      imgUrl: enterImg, 
+    };
 
     try{
       const docRef = await collection (db, 'product')
@@ -38,17 +39,10 @@ const AddProduct = () => {
       }, 
       () =>{
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-          await addDoc(docRef, {
-            productName: enterTitle,
-            shortDesc: enterShortDes,
-            description: enterDescription,
-            price: enterPrice,
-            category: enterCategory,
-            imgUrl: downloadURL,
-          })
+          await addDoc(docRef,(product)
+          )
         })
       })
-      // console.log(getDownloadURL, 'inininini')
       
       
       toast.success('product added successfully')
@@ -60,7 +54,7 @@ const AddProduct = () => {
       setLoading(false)
     }
 
-    // console.log(product)
+    console.log(product)
   }
 
   return (
@@ -95,7 +89,7 @@ const AddProduct = () => {
               <div className='flex flex-col justify-center mt-5 w-40'>
               <span className='text-md font-semibold text-orange-400'>Category</span>
               <select value={enterCategory} onChange={e => setEnterCategory(e.target.value)} required className="border-2 rounded-lg p-2 border-black">
-                <option disabled selected> Category</option>
+                <option> Select Category</option>
                 <option value="sofa">Sofa</option>
                 <option value="mobile">Mobile</option>
                 <option value="chair">Chair</option>

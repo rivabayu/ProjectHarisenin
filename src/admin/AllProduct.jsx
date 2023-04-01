@@ -15,7 +15,7 @@ const AllProduct = () => {
 
   return (
     <section className='mx-20 lg:mx-40 mt-10'>
-      <div className='flex justify-center '>
+      <div className='flex justify-center overflow-y-scroll'>
       <div className='w-[45rem] lg:w-[70rem] gap-10'>
         <div className='border-b-4 flex text-lg font-bold '>
          <span className='w-[25rem] flex '>Image</span>
@@ -31,7 +31,7 @@ const AllProduct = () => {
              <span className='w-[25rem] flex justify-start'>
                <img src={item.imgUrl} className='w-36 pr-5 flex' alt="" />
              </span>
-             <span className='w-[20rem]  py-6'>{item.title}</span>
+             <span className='w-[20rem]  py-6'>{item.productName}</span>
              <span className='w-[20rem] text-end py-6' >{item.category}</span>
              <span className='w-[20rem] text-end py-6'>$ {item.price}</span>
              <span className='w-[20rem] text-end py-3 flex justify-end'>

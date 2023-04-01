@@ -8,9 +8,14 @@ import { Link } from 'react-router-dom'
 
 
 const Cart = () => {
+  const dispatch = useDispatch()
+  // const totalAmount = dispatch(cartActions.getTotal)
 
   const cartItems = useSelector(state => state?.cart?.cartItems)
-  const totalAmount = useSelector(state => state?.cart?.totaAmount)
+  const totalAmount = useSelector((state) => state.cart.totalAmount)
+  // console.log(totalAmount)
+  // const totalAmount = useSelector(state => state.cart.cartItems)
+
   return (
     <Helmet title='Cart'>
       <CommonSection title='Shopping Cart'/>
@@ -36,11 +41,13 @@ const Cart = () => {
                   ))
                 }
               </div>
+          
             </div>
+            
             )
           }
         </div>
-          <div className='mt-10'>
+        <div className='mt-10'>
             <div className='py-4 '>
               <h6 className='font-bold uppercase text-2xl'>SubTotal</h6>
               <span className=' text-xl'>$ {totalAmount}</span>
@@ -61,12 +68,14 @@ const Cart = () => {
 
 const Div = ({item}) =>{
  const dispatch = useDispatch()
-//  console.log(item)
+ console.log(item)
  
-const deleteProduct = () =>{
+const deleteProduct = () =>
   dispatch(cartActions.deleteItem(item?.id))
-  console.log("itemssss",item);
-}
+
+
+
+
 
   return <>
   <div  className='flex border-b-2'> 
@@ -83,6 +92,7 @@ const deleteProduct = () =>{
        </span>
     </span>
   </div>
+  
   </>
   
 }
