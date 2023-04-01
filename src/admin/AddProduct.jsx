@@ -4,6 +4,7 @@ import { db, storage } from '../firebase.config'
 import {ref, uploadBytesResumable, getDownloadURL} from 'firebase/storage'
 import { collection, addDoc } from 'firebase/firestore'
 import { useNavigate } from 'react-router-dom'
+import AdminNav from './AdminNav'
 
 const AddProduct = () => {
   const [enterTitle, setEnterTitle] = useState('')
@@ -19,14 +20,15 @@ const AddProduct = () => {
     e.preventDefault()
     setLoading(true)
 
-    // const product = {
-    //   title: enterTitle,
-    //   shortDesc: enterShortDes,
-    //   description: enterDescription,
-    //   price: enterPrice,
-    //   category: enterCategory,
-    //   imgUrl: enterImg, 
-    // };
+    const product = {
+      id: `${Date.now()}`,
+      title: enterTitle,
+      shortDesc: enterShortDes,
+      description: enterDescription,
+      price: enterPrice,
+      category: enterCategory,
+      imgUrl: enterImg, 
+    };
 
     try{
       const docRef = await collection (db, 'product')
@@ -38,17 +40,10 @@ const AddProduct = () => {
       }, 
       () =>{
         getDownloadURL(uploadTask.snapshot.ref).then(async(downloadURL) => {
-          await addDoc(docRef, {
-            productName: enterTitle,
-            shortDesc: enterShortDes,
-            description: enterDescription,
-            price: enterPrice,
-            category: enterCategory,
-            imgUrl: downloadURL,
-          })
+          await addDoc(docRef,(product)
+          )
         })
       })
-      // console.log(getDownloadURL, 'inininini')
       
       
       toast.success('product added successfully')
@@ -60,17 +55,18 @@ const AddProduct = () => {
       setLoading(false)
     }
 
-    // console.log(product)
+    console.log(product)
   }
 
   return (
-    <div className='lg:mx-40 md:mx-10 mb-20'>
+    <div className=''>
         <div className='mt-10 px-40'>
           <div className='text-3xl'>
             Add Product
           </div>
           {
-            loading ? (<h4 className='py-10 text-xl font-semibold'> Loading .....</h4> 
+            loading ? (<h4 className='py-10 text-xl font-semibold'> Loading .....
+            <progress className="progress w-56"></progress></h4> 
             ):(
               <form className='mt-5 w-full' onSubmit={addProduct}>
             <div className='flex flex-col mt-5'>
@@ -95,7 +91,7 @@ const AddProduct = () => {
               <div className='flex flex-col justify-center mt-5 w-40'>
               <span className='text-md font-semibold text-orange-400'>Category</span>
               <select value={enterCategory} onChange={e => setEnterCategory(e.target.value)} required className="border-2 rounded-lg p-2 border-black">
-                <option disabled selected> Category</option>
+                <option> Select Category</option>
                 <option value="sofa">Sofa</option>
                 <option value="mobile">Mobile</option>
                 <option value="chair">Chair</option>

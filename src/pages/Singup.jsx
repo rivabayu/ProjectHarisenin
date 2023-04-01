@@ -111,11 +111,12 @@ function Singup() {
     <Helmet title='SingUp'>
       <CommonSection title='SingUp'/>
 
-      <section className='mt-20'>
+      <section className='mt-20 mb-[4.2rem]'>
         <div className='mt-20 flex justify-center' >
           {
             loading? (<div className='text-xl font-bold'>
-              Loading.....</div>
+              Loading.....
+              <progress className="progress w-56"></progress></div>
             ):(
               <form className='bg-headingText w-1/2 lg:w-1/4 rounded-xl' onSubmit={signup}>
             <div className='mx-10 my-10' >
@@ -138,7 +139,7 @@ function Singup() {
               <div className='mt-10 flex justify-between'>
                   <p className='text-white '>Already have an account?</p>
                 <Link to='/login'>
-                  <div className='text-white hover:underline'>Logint</div>
+                  <div className='text-white hover:underline'>Login</div>
                 </Link>
               </div>
             </div>

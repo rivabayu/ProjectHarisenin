@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState ={
     cartItems :[],
     totalAmount: 0,
-    totalQuantity:0,
+    totalQuantity: 0,
 }
 
 
@@ -21,6 +21,7 @@ const cartSlice = createSlice({
 
             if(!existingItem){
                 state.cartItems.push({
+                    id: newItem.id ,
                     productName: newItem.productName,
                     imgUrl: newItem.imgUrl,
                     price: newItem.price,
@@ -30,11 +31,23 @@ const cartSlice = createSlice({
             }
             else{
                 existingItem.quantity++
-                existingItem.totalPrice = Number(existingItem.totalPrice) + Number(newItem.price)
+                existingItem.totalPrice = 
+                Number(existingItem.totalPrice) + Number(newItem.price)
             }
-            state.totalAmount = state.cartItems.reduce((total,item) => total + Number(item.price) * Number(item.quantity), [])
+            
+
+
+            state.totalAmount = state.cartItems.reduce((jumalh, item) =>
+            jumalh + item.price * item.quantity ,0)
+ 
+            
+            
+          
+           
         }, 
         deleteItem: (state, action) =>{
+            // state.cartItems=state.cartItems.filter(item=> item.id !==action.payload.id)
+
             const id = action.payload;
             const existingItem = state.cartItems.find((item) => item.id === id);
             
@@ -46,9 +59,8 @@ const cartSlice = createSlice({
                 state.cartItems = state.cartItems.filter((item) => item.id !== id)
                 state.totalQuantity = state.totalQuantity - existingItem.quantity;
             } 
-            console.log( existingItem, 'ini redux')
             state.totalAmount = state.cartItems.reduce((total, item) =>
-                     total + Number(item.price) * Number(item.quantity), [])
+                     total + Number(item.price) * Number(item.quantity), 0)
 
         }       
     },

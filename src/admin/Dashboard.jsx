@@ -1,5 +1,6 @@
 import React from 'react'
 import useGetData from '../custom-hooks/useGetData'
+import AdminNav from './AdminNav'
 
 const Dashboard = () => {
   const {data: product} = useGetData('product')

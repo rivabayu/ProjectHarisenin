@@ -13,7 +13,7 @@ function Services() {
                     </div>
                     <div>
                         <div className='text-2xl font-bold py-1'>Free Ongkir</div>
-                        <p className='text-md'>Gratis Ongkir Ke Seluruh Indonesia</p>
+                        <p className='text-md'>Lorem ipsum, dolor sit amet consectet</p>
                     </div>
                 </div>
                 <div className='p-2 bg-[#ceebe9] w-[20rem] rounded-md flex flex-col lg:flex-row items-center gap-2 border-black hover:scale-105'>
@@ -22,7 +22,7 @@ function Services() {
                     </div>
                     <div>
                         <div className='text-2xl font-bold py-1'>High Quality</div>
-                        <p className='text-md'>Barang Berkualitas</p>
+                        <p className='text-md'>Lorem ipsum dolor sit amet.</p>
                     </div>
                 </div>
                 <div className='p-2 bg-[#e2f2b2] w-[20rem] rounded-md flex flex-col lg:flex-row items-center gap-2 border-black hover:scale-105'>
@@ -31,7 +31,7 @@ function Services() {
                     </div>
                     <div>
                         <div className='text-2xl font-bold py-1'>Secure Payment</div>
-                        <p className='text-md'>Pembayaran terjamin</p>
+                        <p className='text-md'>Lorem, ipsum dolor.</p>
                     </div>
                 </div>
                 <div className='p-2 bg-[#d6e5fb] w-[20rem] rounded-md flex flex-col lg:flex-row items-center gap-2 border-black hover:scale-105'>
@@ -40,7 +40,7 @@ function Services() {
                     </div>
                     <div>
                         <div className='text-2xl font-bold py-1'>Back Guarantee</div>
-                        <p className='text-md'>Jaminan Uang Kembali</p>
+                        <p className='text-md'>Lorem ipsum dolor sit.</p>
                     </div>
                 </div>
             </div>
