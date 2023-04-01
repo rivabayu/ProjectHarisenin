@@ -108,8 +108,8 @@ function Singup() {
     // }
   }
   return (
-    <Helmet title='SingUp'>
-      <CommonSection title='SingUp'/>
+    <Helmet title='SignUp'>
+      <CommonSection title='SignUp'/>
 
       <section className='mt-20 mb-[4.2rem]'>
         <div className='mt-20 flex justify-center' >
