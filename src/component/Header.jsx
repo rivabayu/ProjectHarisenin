@@ -65,9 +65,7 @@ const Header = () => {
       </label>
       
       <ul tabIndex={0} className="menu menu-compact dropdown-content  mt-3 p-2 shadow bg-base-100 rounded-box w-52">
-      <Link to='/dashboard'>
-              <li className='hover:bg-headingText hover:text-white rounded-lg'><a>Dashboard</a></li>
-            </Link>
+   
         {
           currentUser ? 
           <li onClick={logout}><a>Logout</a></li> :<div>
